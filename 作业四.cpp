@@ -1,28 +1,43 @@
 #include <stdio.h>
+unsigned long long int check(unsigned long long int a)
+{
+	unsigned long long int i, A = 0;
+	for (i = 2; i < a / 2; i++)
+	{
+		if (a % i == 0)
+		{
+			A++;
+			break;
+		}	
+	}
+	return A;
+}
 int main()
 {
-	int p, q, i, a = 1, b = 1, num = 0, A;
+	unsigned long long int p, q, i, a = 1, b = 1, num = 0, A;
 	printf("    p     q\n");
-	for (p = 1; p <= 9; p++)
+	for (p = 2; p <= 99999; p++)
 	{
-		for (q = 1; q <= 9; q++)
+		A = check(p);
+		if (A != 0)
+			continue;
+		for (q = p; q <= 99999; q++)
 		{
+			A = check(q);
+			if (A != 0)
+				continue;
 			a = 1;
 			b = 1;
-			A = 0;
 			num = 0;
 			for (i = 0; i < q; i++)
 				a *= p;
 			for (i = 0; i < p; i++)
 				b *= q;
 			num = a + b;
-			for (i = 2; i < num; i++)
-			{
-				if (num % i == 0)
-					A++;
-			}
+			A = check(num);
 			if (A == 0)
-				printf("%5d %5d\n", p, q);
+				printf("%5lld %5lld\n", p, q);
 		}
 	}
+	return 0;
 }
